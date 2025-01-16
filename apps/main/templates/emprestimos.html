@@ -1,9 +1,15 @@
 {% extends "main.html" %}
 {% load static %}
 
-{% block statics %}
-<link rel="stylesheet" href="{% static 'css/emprestimos.css' %}?v=1.0.0">
+{% block assets %}
+    <script src="{% static 'js/clipboard.min.js' %}"></script>
 {% endblock %}
+
+{% block statics %}
+    <link rel="stylesheet" href="{% static 'css/emprestimos.css' %}?v=1.0.0">
+    <script src="{% static 'js/emprestimos.js' %}?v=1.0.0" defer></script>
+{% endblock %}
+
 
 {% block title %}
     Emprestimos
@@ -12,20 +18,12 @@
 
 {% block content %}
     <section id="esmprestimo-container">
-        <div class="row justify-content-between mt-3">
+        <div class="row justify-content-between my-3">
             <div class="col-xs-12 col-md-6 col-lg-3 p-0">
                 <div class="rounded bg-white p-3 m-2">
                     <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
                         <span class="fs-5 d-block">Valor Emprestado</span>
                         <span class="fs-1 d-block">R$ {{emprestimo.valor_emprestado|floatformat:2}}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-6 col-lg-3 p-0">
-                <div class="rounded bg-white p-3 m-2">
-                    <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
-                        <span class="fs-5 d-block">Saldo Atual</span>
-                        <span class="fs-1 d-block">R$ {{emprestimo.saldo_atual|floatformat:2}}</span>
                     </div>
                 </div>
             </div>
@@ -40,6 +38,14 @@
             <div class="col-xs-12 col-md-6 col-lg-3 p-0">
                 <div class="rounded bg-white p-3 m-2">
                     <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
+                        <span class="fs-5 d-block">Saldo Atual</span>
+                        <span class="fs-1 d-block">R$ {{emprestimo.saldo_atual|floatformat:2}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3 p-0">
+                <div class="rounded bg-white p-3 m-2">
+                    <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
                         <span class="fs-5 d-block">Juros Mensal</span>
                         <span class="fs-1 d-block">{{emprestimo.juros_mensal|floatformat:2}}%</span>
                         R$ {{valor_juros|floatformat:2}}
@@ -47,8 +53,11 @@
                 </div>
             </div>
         </div>
+        <div>
+            <img src="{% static 'media/qr-code.png' %}" alt="qr-code" width="150" height="150">
+            <button id="copy-code" class="btn btn-primary" data-clipboard-text="00020126520014BR.GOV.BCB.PIX0114+55919890550410212FinanControl5204000053039865802BR5925Ian Mateus Alves Rodrigue6009SAO PAULO62140510zAHuqeOX6c6304A944">Copiar código do QR Code</button>
+        </div>
     </section>
-    {{emprestimo}}
     <br>
     {{pagamentos}}
 {% endblock %}
