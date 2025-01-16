@@ -1,11 +1,15 @@
-body {
-    background-color: rgb(30, 33, 34);
-    height: 100vh;
+/* BARRA DE ROLAGEM */
+
+::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.6em;
 }
 
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #333;
-    color: white;
+::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 25px;
+    background-color: rgb(227, 227, 227);
 }
