@@ -9,9 +9,12 @@ def emprestimos(request):
     emprestimo = Emprestimos.objects.get(code_id=code_id)
     pagamentos = Pagamentos.objects.filter(emprestimo_id=emprestimo['id'])
 
+    valor_juros = emprestimo['saldo_atual'] * (emprestimo['juros_mensal']/100)
+
     context = {
         'emprestimo': emprestimo,
-        'pagamentos': pagamentos
+        'pagamentos': pagamentos,
+        'valor_juros': valor_juros
     }
     return render(request, 'emprestimos.html', context)
 

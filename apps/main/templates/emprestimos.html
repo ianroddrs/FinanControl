@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block statics %}
+<link rel="stylesheet" href="{% static 'css/emprestimos.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -10,6 +11,43 @@
 
 
 {% block content %}
+    <section id="esmprestimo-container">
+        <div class="row justify-content-between mt-3">
+            <div class="col-xs-12 col-md-6 col-lg-3 p-0">
+                <div class="rounded bg-white p-3 m-2">
+                    <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
+                        <span class="fs-5 d-block">Valor Emprestado</span>
+                        <span class="fs-1 d-block">R$ {{emprestimo.valor_emprestado|floatformat:2}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3 p-0">
+                <div class="rounded bg-white p-3 m-2">
+                    <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
+                        <span class="fs-5 d-block">Saldo Atual</span>
+                        <span class="fs-1 d-block">R$ {{emprestimo.saldo_atual|floatformat:2}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3 p-0">
+                <div class="rounded bg-white p-3 m-2">
+                    <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
+                        <span class="fs-5 d-block">Total Pago</span>
+                        <span class="fs-1 d-block">R$ {{emprestimo.total_pago|floatformat:2}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3 p-0">
+                <div class="rounded bg-white p-3 m-2">
+                    <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
+                        <span class="fs-5 d-block">Juros Mensal</span>
+                        <span class="fs-1 d-block">{{emprestimo.juros_mensal|floatformat:2}}%</span>
+                        R$ {{valor_juros|floatformat:2}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     {{emprestimo}}
     <br>
     {{pagamentos}}
