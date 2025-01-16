@@ -62,8 +62,9 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Emprestimo ID</th>
+            <th scope="col">ID</th>
             <th scope="col">Valor Pago</th>
+            <th scope="col">Valor Juros</th>
             <th scope="col">Data Pagamento</th>
         </tr>
     </thead>
@@ -73,6 +74,7 @@
                 <td class="fw-bold">{{ pagamento.id }}</td>
                 <td>{{ pagamento.emprestimo_id }}</td>
                 <td>R$ {{ pagamento.valor_pagamento|floatformat:2 }}</td>
+                <td>R$ {{ pagamento.valor_juros|floatformat:2 }}</td>
                 <td>{{ pagamento.data_pagamento|date:"d/m/Y" }}</td>
             </tr>
         {% endfor %}

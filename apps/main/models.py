@@ -18,6 +18,7 @@ class Pagamentos(GSpreadModel):
     id = int
     emprestimo_id = int
     valor_pagamento = float
+    valor_juros = float
     data_pagamento = datetime
 
     def __init__(self):
