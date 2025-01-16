@@ -3,7 +3,8 @@ from datetime import datetime
 
 class Emprestimos(GSpreadModel):
     id = int
-    codigo = str
+    code_id = str
+    nome_pessoa = str
     valor_emprestado = float
     saldo_atual = float
     juros_mensal = float
