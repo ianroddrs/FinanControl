@@ -4,34 +4,36 @@ from .models import Emprestimos, Pagamentos
 def home(request):
    return render(request, 'index.html')
 
-def tables(request):
+def emprestimos(request):
+    code_id = request.GET.get('code_id')
+    emprestimo = Emprestimos.objects.get(code_id=code_id)
+    pagamentos = Pagamentos.objects.filter(emprestimo_id=emprestimo['id'])
+
+    context = {
+        'emprestimo': emprestimo,
+        'pagamentos': pagamentos
+    }
+    return render(request, 'emprestimos.html', context)
+
+def dashboards(request):
     emprestimos = Emprestimos.objects.all()
     pagamentos = Pagamentos.objects.all()
 
-    total_emprestado = 0
-    saldo_total = 0 
-    total_pago = 0
-
-    for emprestimo in emprestimos:
-        total_emprestado += float(emprestimo['valor_emprestado'])
-        saldo_total += float(emprestimo['saldo_atual'])
-        total_pago += float(emprestimo['total_pago'])
-
-        emprestimo['valor_emprestado'] = f'R$ {emprestimo["valor_emprestado"]:.2f}'
-        emprestimo['saldo_atual'] = f'R$ {emprestimo["saldo_atual"]:.2f}'
-        emprestimo['juros_mensal'] = f'{float(emprestimo["juros_mensal"])*100:.2f}%'
-        emprestimo['total_pago'] = f'R$ {emprestimo["total_pago"]:.2f}'
+    total_emprestado = sum([emprestimo['valor_emprestado'] for emprestimo in emprestimos])
+    saldo_total = sum([emprestimo['saldo_atual'] for emprestimo in emprestimos])
+    total_pago = sum([emprestimo['total_pago'] for emprestimo in emprestimos])
+    lucro = saldo_total - (total_emprestado - total_pago)
 
     context = {
         'emprestimos': emprestimos,
         'pagamentos': pagamentos,
-        'total_emprestado': f'{total_emprestado:.2f}',
-        'saldo_total': f'{saldo_total:.2f}',
-        'total_pago': f'{total_pago:.2f}',
-        'lucro': f'{saldo_total - (total_emprestado - total_pago):.2f}'
+        'total_emprestado': total_emprestado,
+        'saldo_total': saldo_total,
+        'total_pago': total_pago,
+        'lucro': lucro
     }
 
-    return render(request, 'tabelas.html', context)
+    return render(request, 'dashboards.html', context)
 
 
 

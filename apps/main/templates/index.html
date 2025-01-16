@@ -11,21 +11,35 @@
 
 
 {% block content %}
-    <!-- Seção Hero -->
-    <div class="hero-section">
-        <h1>Pesquise seu Código de Empréstimo</h1>
-        <input type="text" class="form-control input-search rounded-pill" placeholder="Digite o código do empréstimo...">
-        <button class="btn btn-primary btn-search mt-3">Pesquisar</button>
-        
-        <!-- Lista de Pesquisas Anteriores -->
-        <div class="history-list">
-            <h4>Pesquisas Anteriores</h4>
-            <ul class="list-unstyled">
-                <li><a href="#">Código 12345</a></li>
-                <li><a href="#">Código 67890</a></li>
-                <li><a href="#">Código 11223</a></li>
-                <li><a href="#">Código 44556</a></li>
-            </ul>
+    <section>
+        <div class="d-flex align-items-center justify-content-center flex-column mb-5">
+            <span id="logo">
+                <i class="bi bi-coin me-3"></i>
+                <span class="font-monospace">FinanControl</span>
+            </span>
+            <small>Um sistema de controle financeiro simples e eficiente.</small>
         </div>
-    </div>
+    </section>
+
+    <!-- Formulário -->
+    <section id="search-form" class="m-auto">
+        <form action="{% url 'emprestimos' %}" method="get" class="w-100">
+            <div class="form-control rounded-pill input-group d-flex align-items-center search-bar">
+                <i class="bi bi-search fs-3 text-muted"></i>
+                <input type="text" class="form-control input-search border-0 mx-3 rounded-pill" name="code_id" placeholder="Digite seu código...">
+                <button type="submit" class="btn btn-primary rounded-pill">Pesquisar</button>
+            </div>
+        </form>
+    </section>
+    
+    <!-- Lista de Pesquisas Anteriores -->
+    <section class="history-list">
+        <h4>Pesquisas Anteriores</h4>
+        <ul class="list-unstyled">
+            <li><a href="#">Código 12345</a></li>
+            <li><a href="#">Código 67890</a></li>
+            <li><a href="#">Código 11223</a></li>
+            <li><a href="#">Código 44556</a></li>
+        </ul>
+    </section>
 {% endblock %}

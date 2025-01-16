@@ -9,6 +9,7 @@
   <!-- ASSETS -->
   <link rel="icon" href="{% static 'media/favicon.ico' %}" type="image/x-icon">
   <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/bootstrap-icons.min.css' %}">
   <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
   {% block assets %}{% endblock %}
 
@@ -17,34 +18,41 @@
   <script src="{% static 'js/main.js' %}"></script>
   {% block statics %}{% endblock %}
 
-  <title>{% block title %}{% endblock %}</title>
+  <title>FinanControl | {% block title %}{% endblock %}</title>
 </head>
-<body class="bg-dark">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <span class="navbar-brand">Site de Empréstimos</span>
-      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-          <!-- Menu lateral -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-      <div class="offcanvas-header">
-          <h5 id="offcanvasMenuLabel">Menu</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-      </div>
-      <div class="offcanvas-body">
-          <ul class="list-unstyled">
-              <li><a href="#" class="text-decoration-none"><i class="fas fa-home"></i> Página Inicial</a></li>
-              <li><a href="#" class="text-decoration-none"><i class="fas fa-phone-alt"></i> Contato</a></li>
-              <li><a href="#" class="text-decoration-none"><i class="fas fa-info-circle"></i> Sobre</a></li>
-          </ul>
-      </div>
-  </div>
+<body class="bg-light d-flex flex-column justify-content-between min-vh-100">
+  <nav class="navbar navbar-dark bg-dark px-3">
+    <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center">
+      <i class="bi bi-coin fs-3 mx-3"></i>
+      <span class="fs-5 font-monospace">FinanControl</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
   </nav>
-  <main class="container h-100">
+  <aside class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasMenuLabel">Menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <ul class="list-unstyled">
+            <li><a href="{% url 'home' %}" class="text-decoration-none btn btn-light btn-sm rounded-pill">
+              <i class="bi bi-house-fill me-3"></i>Página Inicial</a>
+            </li>
+            <li><a href="{% url 'dashboards' %}" class="text-decoration-none btn btn-light btn-sm rounded-pill">
+              <i class="bi bi-file-earmark-bar-graph-fill me-3"></i>Dashborads</a>
+            </li>
+        </ul>
+    </div>
+  </aside>
+  <main class="container">
     {% block content  %}{% endblock %}
   </main>
-  <footer>
-      <p>&copy; 2025 Site de Empréstimos | Desenvolvido por Ian Rodrigues (@ianroddrs)</p>
+  <footer class="footer py-4 bg-dark">
+      <p class="text-center text-light">
+        &copy; 2025 FinanControl | Desenvolvido por <a class="text-secondary text-decoration-none" href="https://www.github.com/ianroddrs">@ianroddrs</a>
+      </p>
   </footer>
 </body>
 </html>

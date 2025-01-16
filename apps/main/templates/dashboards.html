@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    Tabelas
+    Dashboards
 {% endblock %}
 
 {% block content %}
@@ -14,19 +14,19 @@
 <div class="d-flex flex-row justify-content-between">
     <span class="text-danger">
         <h5>Total Emprestado</h5>
-        <h1>R$ {{ total_emprestado }}</h1>
+        <h1>R$ {{ total_emprestado|floatformat:2 }}</h1>
     </span>
-    <span class="text-white">
+    <span class="text-dark">
         <h5>Total Devolvido</h5>
-        <h1>R$ {{ total_pago }}</h1>
+        <h1>R$ {{ total_pago|floatformat:2 }}</h1>
     </span>
     <span class="text-warning">
         <h5>Saldo Total</h5>
-        <h1>R$ {{ saldo_total }}</h1>
+        <h1>R$ {{ saldo_total|floatformat:2 }}</h1>
     </span>
     <span class="text-success">
         <h5>Lucro Total</h5>
-        <h1>R$ {{ lucro }}</h1>
+        <h1>R$ {{ lucro|floatformat:2 }}</h1>
     </span>
 </div>
 <h2>Tabela de emprestimos</h2>
@@ -34,8 +34,8 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Código Identidade</th>
-            <th scope="col">Nome Pessoa</th>
+            <th scope="col">Código</th>
+            <th scope="col">Nome</th>
             <th scope="col">Valor Emprestado</th>
             <th scope="col">Saldo Atual</th>
             <th scope="col">Juros Mensal</th>
@@ -45,13 +45,13 @@
     <tbody>
         {% for emprestimo in emprestimos %}
             <tr>
-                <td>{{ emprestimo.id }}</td>
-                <td>{{ emprestimo.codigo_identidade }}</td>
+                <td class="fw-bold">{{ emprestimo.id }}</td>
+                <td>{{ emprestimo.code_id }}</td>
                 <td>{{ emprestimo.nome_pessoa }}</td>
-                <td>{{ emprestimo.valor_emprestado }}</td>
-                <td>{{ emprestimo.saldo_atual }}</td>
-                <td>{{ emprestimo.juros_mensal }}</td>
-                <td>{{ emprestimo.total_pago }}</td>
+                <td>R$ {{ emprestimo.valor_emprestado|floatformat:2 }}</td>
+                <td>R$ {{ emprestimo.saldo_atual|floatformat:2 }}</td>
+                <td>{{ emprestimo.juros_mensal }}%</td>
+                <td>R$ {{ emprestimo.total_pago|floatformat:2 }}</td>
             </tr>
         {% endfor %}
     </tbody>
@@ -62,7 +62,7 @@
     <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">ID Emprestimo</th>
+            <th scope="col">Emprestimo ID</th>
             <th scope="col">Valor Pago</th>
             <th scope="col">Data Pagamento</th>
         </tr>
@@ -70,10 +70,10 @@
     <tbody>
         {% for pagamento in pagamentos %}
             <tr>
-                <td>{{ pagamento.id }}</td>
+                <td class="fw-bold">{{ pagamento.id }}</td>
                 <td>{{ pagamento.emprestimo_id }}</td>
-                <td>{{ pagamento.valor_pagamento }}</td>
-                <td>{{ pagamento.data_pagamento }}</td>
+                <td>R$ {{ pagamento.valor_pagamento|floatformat:2 }}</td>
+                <td>{{ pagamento.data_pagamento|date:"d/m/Y" }}</td>
             </tr>
         {% endfor %}
     </tbody>
