@@ -1,7 +1,7 @@
-from core.services import GSpreadModel
+from core.services import Model
 from datetime import datetime
 
-class Emprestimos(GSpreadModel):
+class Emprestimos(metaclass=Model):
     id = int
     code_id = str
     nome_pessoa = str
@@ -10,17 +10,17 @@ class Emprestimos(GSpreadModel):
     juros_mensal = float
     total_pago = float
 
-    def __init__(self):
-        self.worksheet_name = "emprestimos"
-        super().__init__()
+    class _meta:
+        db_name = "emprestimos_db"
+        db_table = "emprestimos"
 
-class Pagamentos(GSpreadModel):
+class Pagamentos(metaclass=Model):
     id = int
     emprestimo_id = int
     valor_pagamento = float
     valor_juros = float
     data_pagamento = datetime
 
-    def __init__(self):
-        self.worksheet_name = "pagamentos"
-        super().__init__()
+    class _meta:
+        db_name = "emprestimos_db"
+        db_table = "pagamentos"
