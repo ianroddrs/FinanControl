@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from .models import Emprestimos, Pagamentos
+import qrcode
+import io
+import base64
 
 def home(request):
    return render(request, 'index.html')
@@ -11,11 +14,15 @@ def emprestimos(request):
 
     valor_juros = emprestimo['saldo_atual'] * (emprestimo['juros_mensal']/100)
 
+    pix = pix_code(0)
+
     context = {
         'emprestimo': emprestimo,
         'pagamentos': pagamentos,
-        'valor_juros': valor_juros
+        'valor_juros': valor_juros,
+        'pix':pix
     }
+
     return render(request, 'emprestimos.html', context)
 
 def dashboards(request):
@@ -38,10 +45,61 @@ def dashboards(request):
 
     return render(request, 'dashboards.html', context)
 
+# Função principal para gerar o QR Code
+def pix_code(value):
+    pix_value = float(value) if value else 0
+    pix_key = '+5591989055041'  # Altere para qualquer chave PIX: Celular, CPF, CNPJ ou chave aleatória.
+    destinatario = 'Ian Mateus Alves Rodrigues'  # Digite aqui o destinatário
+    cidade = 'SAO PAULO'  # Digite aqui a cidade com máximo de 24 caracteres
+
+    # Construindo o Payload PIX a partir dos dados adicionados.
+    payload = build_pix_payload(pix_key, pix_value, destinatario, cidade)
+
+    # Calcula o CRC16 e o adiciona ao payload PIX
+    crc16 = get_crc16(payload)
+    payload += '6304' + format(crc16, 'X').upper()
+
+    qr = qrcode.make(payload)
+    img_buffer = io.BytesIO()
+    qr.save(img_buffer, format="PNG")
+    img_buffer.seek(0)
+    qr_code = base64.b64encode(img_buffer.read()).decode('utf-8')
+
+    return {'qr_code': qr_code, 'code': payload}
 
 
+# Função para construir o Payload PIX
+def build_pix_payload(pix_key, pix_value, destinatario, cidade):
+    pix_value_formatted = f"{pix_value:.2f}"
+    pix_length_value = len(pix_value_formatted)
+    pix_length_formatted = str(pix_length_value).zfill(2)
+    destinatario_length = len(destinatario)
+    cidade_length = str(len(cidade)).zfill(2)
+
+    return (
+        f'00020126360014BR.GOV.BCB.PIX01{len(pix_key)}{pix_key}'
+        f'52040000530398654{pix_length_formatted}{pix_value_formatted}'
+        f'5802BR59{destinatario_length}{destinatario}'
+        f'60{cidade_length}{cidade}62130509financontrol'
+    )
 
 
+# Função para calcular o CRC16
+def get_crc16(payload):
+    payload += '6304'
+    polinomio = 0x1021
+    resultado = 0xFFFF
+    length = len(payload)
+
+    for offset in range(length):
+        resultado ^= (ord(payload[offset]) << 8)
+
+        for _ in range(8):
+            if (resultado << 1) & 0x10000:
+                resultado ^= polinomio
+            resultado &= 0xFFFF
+
+    return resultado
 
 
 
