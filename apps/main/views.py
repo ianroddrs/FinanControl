@@ -10,7 +10,7 @@ def emprestimos(request):
     emprestimo = Emprestimos.objects.get(code_id=code_id)
     pagamentos = Pagamentos.objects.filter(emprestimo_id=emprestimo['id'])
 
-    valor_juros = emprestimo['saldo_atual'] * (emprestimo['juros_mensal']/100)
+    valor_juros = emprestimo['saldo_atual'] + emprestimo['total_pago'] - emprestimo['valor_emprestado']
     
     pix = Pix(valor_juros).getPix()
 

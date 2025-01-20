@@ -8,7 +8,7 @@
 
 {% block statics %}
     <link rel="stylesheet" href="{% static 'css/emprestimos.css' %}?v=1.0.0">
-    <script src="{% static 'js/emprestimos.js' %}?v=1.0.0" defer></script>
+    <script src="{% static 'js/emprestimos.js' %}?v=1.0.1" defer></script>
 {% endblock %}
 
 
@@ -57,7 +57,26 @@
                     <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
                         <span class="fs-5 d-block">Juros Mensal</span>
                         <span class="fs-1 d-block">{{emprestimo.juros_mensal|floatformat:2}}%</span>
-                        R$ {{valor_juros|floatformat:2}}
+                        <span class="small text-muted">
+                            juros pago: R$ {{valor_juros|floatformat:2}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-6 p-0">
+                <div class="rounded bg-white p-3 m-2">
+                    <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
+                        <div id="chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-6 p-0">
+                <div class="rounded bg-white p-3 m-2">
+                    <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
+                        <div id="chart2"></div>
                     </div>
                 </div>
             </div>
@@ -68,5 +87,6 @@
         </div>
     </section>
     <br>
+    <div id="chart"></div>
     {{pagamentos}}
 {% endblock %}
