@@ -5,6 +5,14 @@
     Dashboards
 {% endblock %}
 
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'dashboards' %}" class="text-decoration-none text-dark">
+            <i class="bi bi-pie-chart-fill me-2"></i>Dashboard
+        </a>
+    </li>
+{% endblock %}
+
 {% block content %}
 <nav>
     <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-pagamento">Adicionar Pagamento</button>
@@ -46,7 +54,7 @@
         {% for emprestimo in emprestimos %}
             <tr>
                 <td class="fw-bold">{{ emprestimo.id }}</td>
-                <td>{{ emprestimo.code_id }}</td>
+                <td><a href="{% url 'emprestimos' %}?code_id={{ emprestimo.code_id }}">{{ emprestimo.code_id }}</a></td>
                 <td>{{ emprestimo.nome_pessoa }}</td>
                 <td>R$ {{ emprestimo.valor_emprestado|floatformat:2 }}</td>
                 <td>R$ {{ emprestimo.saldo_atual|floatformat:2 }}</td>

@@ -3,6 +3,7 @@
 
 {% block assets %}
     <script src="{% static 'js/clipboard.min.js' %}"></script>
+    <script src="{% static 'js/apexcharts.js' %}"></script>
 {% endblock %}
 
 {% block statics %}
@@ -13,6 +14,14 @@
 
 {% block title %}
     Emprestimos
+{% endblock %}
+
+{% block breadcrumb %}
+    <li class="breadcrumb-item">
+        <a href="{% url 'emprestimos' %}" class="text-decoration-none text-dark">
+            <i class="bi bi-cash-stack me-3"></i>Emprestimos
+        </a>
+    </li>
 {% endblock %}
 
 

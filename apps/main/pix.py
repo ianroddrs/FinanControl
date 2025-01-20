@@ -8,7 +8,7 @@ class Pix():
         
         self.nome = 'Ian Mateus Alves Rodirgues'
         self.chavepix = '+5591989055041'
-        self.valor = str(valor).replace(',', '.')
+        self.valor = f'{valor:.2f}'
         self.cidade = 'Ananindeua'
         self.txtId = 'FinanControl'
 

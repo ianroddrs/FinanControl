@@ -11,10 +11,8 @@ def emprestimos(request):
     pagamentos = Pagamentos.objects.filter(emprestimo_id=emprestimo['id'])
 
     valor_juros = emprestimo['saldo_atual'] * (emprestimo['juros_mensal']/100)
-
-    pix = Pix(valor=valor_juros).getPix()
-
-    print(pix)
+    
+    pix = Pix(valor_juros).getPix()
 
     context = {
         'emprestimo': emprestimo,
@@ -45,7 +43,8 @@ def dashboards(request):
 
     return render(request, 'dashboards.html', context)
 
-
+def charts(request):
+    pass
 
 
 

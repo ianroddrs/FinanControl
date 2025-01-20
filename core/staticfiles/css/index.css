@@ -10,7 +10,7 @@
     font-size: clamp(2.4rem, 4.8vw, 4.4rem);
 }
 
-#search-form{
+#search-form, #history-list{
     max-width: 700px;
     min-width: 300px
 }

@@ -10,8 +10,8 @@ class Emprestimos(metaclass=Model):
     juros_mensal = float
     total_pago = float
 
-    class _meta:
-        db_name = "emprestimos_db"
+    class Meta:
+        db_name = "financontrol_db"
         db_table = "emprestimos"
 
 class Pagamentos(metaclass=Model):
@@ -21,6 +21,6 @@ class Pagamentos(metaclass=Model):
     valor_juros = float
     data_pagamento = datetime
 
-    class _meta:
-        db_name = "emprestimos_db"
+    class Meta:
+        db_name = "financontrol_db"
         db_table = "pagamentos"

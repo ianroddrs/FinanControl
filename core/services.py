@@ -38,8 +38,8 @@ class Model(ABCMeta):
 class ModelObjects:
   def __init__(self, cls):
       self.cls = cls
-      self.sheet = settings.GSPREAD_CLIENT.open(cls._meta.db_name)
-      self.worksheet = self.sheet.worksheet(cls._meta.db_table)
+      self.sheet = settings.GSPREAD_CLIENT.open(cls.Meta.db_name)
+      self.worksheet = self.sheet.worksheet(cls.Meta.db_table)
 
   def all(self) -> List[Dict[str, Any]]:
       all_records = self.worksheet.get_all_records()
@@ -58,7 +58,7 @@ class ModelObjects:
     return [record for record in all_records if all(record.get(k) == v for k, v in kwargs.items())]
   
   def __set_type_attrs(self, queryset) -> List[Dict[str, Any]]:
-    type_attrs = {attr: type for attr, type in vars(self.cls).items() if not attr.startswith("_") and callable(getattr(self.cls, attr))}
+    type_attrs = {attr: type for attr, type in vars(self.cls).items() if not attr.startswith("_") and callable(getattr(self.cls, attr)) and attr != "Meta"} 
     for record in queryset:
       for attr, type in type_attrs.items():
         if type == datetime:
