@@ -54,8 +54,8 @@
             </div>
         </div>
         <div>
-            <img src="{% static 'media/qr-code.png' %}" alt="qr-code" width="150" height="150">
-            <button id="copy-code" class="btn btn-primary" data-clipboard-text="00020126520014BR.GOV.BCB.PIX0114+55919890550410212FinanControl5204000053039865802BR5925Ian Mateus Alves Rodrigue6009SAO PAULO62140510zAHuqeOX6c6304A944">Copiar código do QR Code</button>
+            <img src="data:image/png;base64,{{pix.qrcode}}" alt="qr-code" width="150" height="150">
+            <button id="copy-code" class="btn btn-primary" data-clipboard-text="{{pix.payload}}">Copiar código do QR Code</button>
         </div>
     </section>
     <br>
