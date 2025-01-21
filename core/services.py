@@ -4,18 +4,28 @@ from typing import List, Dict, Any
 from django.conf import settings
 from abc import ABCMeta
 from datetime import datetime
+import requests
+from apscheduler.schedulers.background import BackgroundScheduler
+
+def render():
+  url = "https://financontrol.onrender.com/"
+  try:
+      response = requests.get(url)
+      if response.status_code == 200:
+          print(f"Requisição bem-sucedida: {response.status_code}")
+      else:
+          print(f"Erro ao acessar o site: {response.status_code}")
+  except Exception as e:
+      print(f"Erro na requisição: {e}")
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(render, 'interval',minute=1)
 
 def initialize_gspread() -> gspread.client.Client:
   """
   Initialize a gspread client with the given credentials.
   """
-  return gspread.service_account_from_dict(get_credentials())  # Note: we could move this to settings to do this once.
-
-def get_credentials() -> dict:
-  """
-  Return gspread credentials.
-  """
-  return {
+  credentials = {
     "type": os.getenv("TYPE"),
     "project_id": os.getenv("PROJECT_ID"),
     "private_key_id": os.getenv("PRIVATE_KEY_ID"),
@@ -28,6 +38,7 @@ def get_credentials() -> dict:
     "client_x509_cert_url": os.getenv("CLIENT_X509_CERT_URL"),
     "universe_domain": os.getenv("UNIVERSE_DOMAIN")
   }
+  return gspread.service_account_from_dict(credentials)  # Note: we could move this to settings to do this once.
 
 class Model(ABCMeta):
   def __new__(cls, name, bases, attrs):

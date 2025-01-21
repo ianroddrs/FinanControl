@@ -8,6 +8,9 @@ load_dotenv()
 # Starting the gspread client when our server starts speeds things up; it avoids re-authenticating on each request
 GSPREAD_CLIENT = initialize_gspread() 
 
+#APSCHEDULER
+APSCHEDULER_AUTOSTART = True
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -32,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'apscheduler',
     'apps.main'
 ]
 
