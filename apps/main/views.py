@@ -1,39 +1,42 @@
 from django.shortcuts import render
-from .models import Emprestimos, Pagamentos
+from .models import Negociacoes, Pagamentos
 from .pix import Pix
 
 def home(request):
    return render(request, 'index.html')
 
-def emprestimos(request):
+def negociacoes(request):
     code_id = request.GET.get('code_id')
-    emprestimo = Emprestimos.objects.get(code_id=code_id)
-    pagamentos = Pagamentos.objects.filter(emprestimo_id=emprestimo['id'])
+    if code_id:
+        emprestimo = Negociacoes.objects.get(code_id=code_id)
+        pagamentos = Pagamentos.objects.filter(emprestimo_id=emprestimo['id'])
 
-    valor_juros = emprestimo['saldo_atual'] + emprestimo['total_pago'] - emprestimo['valor_emprestado']
-    
-    pix = Pix(valor_juros).getPix()
+        valor_juros = emprestimo['saldo_atual'] + emprestimo['total_pago'] - emprestimo['valor_emprestado']
+        
+        pix = Pix(valor_juros).getPix()
 
-    context = {
-        'emprestimo': emprestimo,
-        'pagamentos': pagamentos,
-        'valor_juros': valor_juros,
-        'pix':pix
-    }
+        context = {
+            'emprestimo': emprestimo,
+            'pagamentos': pagamentos,
+            'valor_juros': valor_juros,
+            'pix':pix
+        }
 
-    return render(request, 'emprestimos.html', context)
+        return render(request, 'negociacoes.html', context)
+    else:
+        return render(request, '404.html')
 
 def dashboards(request):
-    emprestimos = Emprestimos.objects.all()
+    negociacoes = Negociacoes.objects.all()
     pagamentos = Pagamentos.objects.all()
 
-    total_emprestado = sum([emprestimo['valor_emprestado'] for emprestimo in emprestimos])
-    saldo_total = sum([emprestimo['saldo_atual'] for emprestimo in emprestimos])
-    total_pago = sum([emprestimo['total_pago'] for emprestimo in emprestimos])
+    total_emprestado = sum([emprestimo['valor_emprestado'] for emprestimo in negociacoes])
+    saldo_total = sum([emprestimo['saldo_atual'] for emprestimo in negociacoes])
+    total_pago = sum([emprestimo['total_pago'] for emprestimo in negociacoes])
     lucro = saldo_total - (total_emprestado - total_pago)
 
     context = {
-        'emprestimos': emprestimos,
+        'negociacoes': negociacoes,
         'pagamentos': pagamentos,
         'total_emprestado': total_emprestado,
         'saldo_total': saldo_total,

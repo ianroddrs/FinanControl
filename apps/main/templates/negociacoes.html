@@ -7,19 +7,19 @@
 {% endblock %}
 
 {% block statics %}
-    <link rel="stylesheet" href="{% static 'css/emprestimos.css' %}?v=1.0.0">
-    <script src="{% static 'js/emprestimos.js' %}?v=1.0.1" defer></script>
+    <link rel="stylesheet" href="{% static 'css/negociacoes.css' %}?v=1.0.0">
+    <script src="{% static 'js/negociacoes.js' %}?v=1.0.1" defer></script>
 {% endblock %}
 
 
 {% block title %}
-    Emprestimos
+    Negociacoes
 {% endblock %}
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="{% url 'emprestimos' %}" class="text-decoration-none text-dark">
-            <i class="bi bi-cash-stack me-3"></i>Emprestimos
+        <a href="{% url 'negociacoes' %}" class="btn btn-warning btn-sm rounded-pill">
+            <i class="bi bi-cash-stack me-2"></i>Negociações
         </a>
     </li>
 {% endblock %}
@@ -31,7 +31,7 @@
             <div class="col-xs-12 col-md-6 col-lg-3 p-0">
                 <div class="rounded bg-white p-3 m-2">
                     <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
-                        <span class="fs-5 d-block">Valor Emprestado</span>
+                        <span class="fs-5 d-block">Valor Negociado</span>
                         <span class="fs-1 d-block">R$ {{emprestimo.valor_emprestado|floatformat:2}}</span>
                     </div>
                 </div>
@@ -47,7 +47,7 @@
             <div class="col-xs-12 col-md-6 col-lg-3 p-0">
                 <div class="rounded bg-white p-3 m-2">
                     <div class="fw-bold d-flex flex-column justify-content-center align-items-center emp-info">
-                        <span class="fs-5 d-block">Saldo Atual</span>
+                        <span class="fs-5 d-block">Saldo Restante</span>
                         <span class="fs-1 d-block">R$ {{emprestimo.saldo_atual|floatformat:2}}</span>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <span class="fs-5 d-block">Juros Mensal</span>
                         <span class="fs-1 d-block">{{emprestimo.juros_mensal|floatformat:2}}%</span>
                         <span class="small text-muted">
-                            juros pago: R$ {{valor_juros|floatformat:2}}
+                            Montante: R$ {{valor_juros|floatformat:2}}
                         </span>
                     </div>
                 </div>
@@ -86,7 +86,4 @@
             <button id="copy-code" class="btn btn-primary" data-clipboard-text="{{pix.payload}}">Copiar código do QR Code</button>
         </div>
     </section>
-    <br>
-    <div id="chart"></div>
-    {{pagamentos}}
 {% endblock %}

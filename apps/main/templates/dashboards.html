@@ -7,7 +7,7 @@
 
 {% block breadcrumb %}
     <li class="breadcrumb-item">
-        <a href="{% url 'dashboards' %}" class="text-decoration-none text-dark">
+        <a href="{% url 'dashboards' %}" class="btn btn-warning btn-sm rounded-pill">
             <i class="bi bi-pie-chart-fill me-2"></i>Dashboard
         </a>
     </li>
@@ -37,7 +37,7 @@
         <h1>R$ {{ lucro|floatformat:2 }}</h1>
     </span>
 </div>
-<h2>Tabela de emprestimos</h2>
+<h2>Tabela de negociações</h2>
 <table class="table table-hover" style="border-radius: 15px; overflow: hidden;">
     <thead>
         <tr>
@@ -51,10 +51,10 @@
         </tr>
     </thead>
     <tbody>
-        {% for emprestimo in emprestimos %}
+        {% for emprestimo in negociacoes %}
             <tr>
                 <td class="fw-bold">{{ emprestimo.id }}</td>
-                <td><a href="{% url 'emprestimos' %}?code_id={{ emprestimo.code_id }}">{{ emprestimo.code_id }}</a></td>
+                <td><a href="{% url 'negociacoes' %}?code_id={{ emprestimo.code_id }}">{{ emprestimo.code_id }}</a></td>
                 <td>{{ emprestimo.nome_pessoa }}</td>
                 <td>R$ {{ emprestimo.valor_emprestado|floatformat:2 }}</td>
                 <td>R$ {{ emprestimo.saldo_atual|floatformat:2 }}</td>
@@ -101,7 +101,7 @@
             <div class="mb-3">
                 <label for="emprestimo_id" class="form-label">ID do emprestimo</label>
                 <select name="" id="emprestimo_id" name="emprestimo_id" class="form-select">
-                    {% for emprestimo in emprestimos %}
+                    {% for emprestimo in negociacoes %}
                         <option value="{{emprestimo.id}}">{{emprestimo.codigo_identidade}} -  {{emprestimo.nome_pessoa}}</option>
                     {% endfor %}
                 </select>

@@ -15,31 +15,35 @@
         <div class="d-flex align-items-center justify-content-center flex-column mb-5">
             <span id="logo">
                 <i class="bi bi-coin me-3"></i>
-                <span class="font-monospace">FinanControl</span>
+                <span class="font-monospace fw-bold"> FinanControl</span>
             </span>
-            <small>Um sistema de controle financeiro simples e eficiente.</small>
+            <small></small>
         </div>
     </section>
 
     <!-- Formulário -->
-    <section id="search-form" class="m-auto">
-        <form action="{% url 'emprestimos' %}" method="get" class="w-100">
-            <div class="form-control rounded-pill input-group d-flex align-items-center search-bar">
+    <section id="search-form" class="m-auto mb-5 pb-5">
+        <form action="{% url 'negociacoes' %}" method="get" class="w-100 position-relative">
+            {% csrf_token %}
+            <div class="form-control rounded-pill input-group d-flex align-items-center search-bar" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-search fs-3 text-muted"></i>
                 <input type="text" class="form-control input-search border-0 mx-3 rounded-pill" name="code_id" placeholder="Digite seu código...">
                 <button type="submit" class="btn btn-primary rounded-pill">Pesquisar</button>
             </div>
+            <div class="dropdown-menu w-100 p-3 border" aria-labelledby="dropdownMenuButton1">
+                <h5>Pesquisas</h5>
+                <ul class="list-unstyled">
+                    <li><a class="dropdown-item rounded-pill" href="{% url 'negociacoes' %}?code_id=FS001">
+                        <i class="bi bi-clock-history me-2 text-warning"></i> 
+                        <span class="text-muted">FS001</span>
+                    </a></li>
+                    <li><a class="dropdown-item rounded-pill" href="{% url 'negociacoes' %}?code_id=FH001">
+                        <i class="bi bi-clock-history me-2 text-warning"></i> 
+                        <span class="text-muted">FH001</span>
+                    </a></li>
+                </ul>
+            </div>
         </form>
     </section>
     
-    <!-- Lista de Pesquisas Anteriores -->
-    <section class="text-end m-auto mt-4" id="history-list">
-        <h4>Pesquisas Anteriores</h4>
-        <ul class="list-unstyled">
-            <li><a href="{% url 'emprestimos' %}?code_id=WP001">Código WP001</a></li>
-            <li><a href="{% url 'emprestimos' %}?code_id=FH001">Código FH001</a></li>
-            <li><a href="{% url 'emprestimos' %}?code_id=CS001">Código CS001</a></li>
-            <li><a href="{% url 'emprestimos' %}?code_id=FS001">Código FS001</a></li>
-        </ul>
-    </section>
 {% endblock %}

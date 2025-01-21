@@ -1,7 +1,7 @@
 from core.services import Model
 from datetime import datetime
 
-class Emprestimos(metaclass=Model):
+class Negociacoes(metaclass=Model):
     id = int
     code_id = str
     nome_pessoa = str
@@ -12,7 +12,7 @@ class Emprestimos(metaclass=Model):
 
     class Meta:
         db_name = "financontrol_db"
-        db_table = "emprestimos"
+        db_table = "negociacoes"
 
 class Pagamentos(metaclass=Model):
     id = int

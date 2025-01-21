@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block statics %}
+    
+{% endblock %}
+
+{% block title %}
+    404 - Página não encontrada
+{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'negociacoes' %}" class="btn btn-warning btn-sm rounded-pill">
+        <i class="bi bi-cash-stack me-2"></i>Negociações
+    </a>
+</li>
+    <li class="breadcrumb-item">
+        <a href="#" class="btn btn-warning btn-sm rounded-pill">
+            <i class="bi bi-x-circle-fill me-2"></i>404
+        </a>
+    </li>
+{% endblock %}
+
+
+{% block content %}
+<h1 class="font-monospace text-center">
+    PÁGINA NÃO ENCONTRADA :(
+</h1>
+{% endblock %}
