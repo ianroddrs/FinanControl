@@ -19,7 +19,7 @@ def render():
       print(f"Erro na requisição: {e}")
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(render, 'interval',minute=1)
+scheduler.add_job(render, 'interval', minutes=1)
 
 def initialize_gspread() -> gspread.client.Client:
   """
